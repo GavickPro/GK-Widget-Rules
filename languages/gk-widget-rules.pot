@@ -1,0 +1,192 @@
+# GK Widget Rules
+# Copyright (C) 2014 GavickPro
+# This file is distributed under the same license as the PACKAGE package.
+# GavickPro <info@gavick.com>, 2014.
+#
+#, fuzzy
+msgid   ""
+msgstr  "Project-Id-Version: 0.1\n"
+        "Report-Msgid-Bugs-To: \n"
+        "POT-Creation-Date: 2014-07-30 14:42+0200\n"
+        "PO-Revision-Date: 2014-07-30 14:42+0200\n"
+        "Last-Translator: Tomasz Dziuda <dziudek@gavick.com>\n"
+        "Language-Team: LANGUAGE <LL@li.org>\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=CHARSET\n"
+        "Content-Transfer-Encoding: 8bit\n"
+
+#: widget-rules.php:173
+msgid   "404 page"
+msgstr  ""
+
+#: widget-rules.php:185
+msgid   "Add page"
+msgstr  ""
+
+#: widget-rules.php:245
+msgid   "All devices"
+msgstr  ""
+
+#: widget-rules.php:153
+msgid   "All pages"
+msgstr  ""
+
+#: widget-rules.php:154
+msgid   "All pages except:"
+msgstr  ""
+
+#: widget-rules.php:262
+msgid   "All users"
+msgstr  ""
+
+#: widget-rules.php:167
+msgid   "Archive"
+msgstr  ""
+
+#: widget-rules.php:168
+msgid   "Author"
+msgstr  ""
+
+#: widget-rules.php:180
+msgid   "Author:"
+msgstr  ""
+
+#: widget-rules.php:164
+msgid   "Category"
+msgstr  ""
+
+#: widget-rules.php:177
+msgid   "Category ID/Name/slug:"
+msgstr  ""
+
+#: widget-rules.php:178
+msgid   "Category ID:"
+msgstr  ""
+
+#: widget-rules.php:165
+msgid   "Category with descendants"
+msgstr  ""
+
+#: widget-rules.php:242
+msgid   "Custom CSS class: "
+msgstr  ""
+
+#: widget-rules.php:246
+msgid   "Desktop"
+msgstr  ""
+
+#: widget-rules.php:250
+msgid   "Desktop/Tablets"
+msgstr  ""
+
+#: widget-rules.php:161
+msgid   "Homepage"
+msgstr  ""
+
+#: widget-rules.php:189
+msgid   "No pages"
+msgstr  ""
+
+#: widget-rules.php:155
+msgid   "No pages except:"
+msgstr  ""
+
+#: widget-rules.php:265
+msgid   "Only administrator"
+msgstr  ""
+
+#: widget-rules.php:263
+msgid   "Only guests"
+msgstr  ""
+
+#: widget-rules.php:264
+msgid   "Only registered users"
+msgstr  ""
+
+#: widget-rules.php:162
+msgid   "Page"
+msgstr  ""
+
+#: widget-rules.php:175
+msgid   "Page ID/Title/slug:"
+msgstr  ""
+
+#: widget-rules.php:169
+msgid   "Page Template"
+msgstr  ""
+
+#: widget-rules.php:163
+msgid   "Post"
+msgstr  ""
+
+#: widget-rules.php:176
+msgid   "Post ID/Title/slug:"
+msgstr  ""
+
+#: widget-rules.php:171
+msgid   "Post type"
+msgstr  ""
+
+#: widget-rules.php:184
+msgid   "Post type:"
+msgstr  ""
+
+#: widget-rules.php:172
+msgid   "Search page"
+msgstr  ""
+
+#: widget-rules.php:159
+msgid   "Select page to add"
+msgstr  ""
+
+#: widget-rules.php:188
+msgid   "Selected pages"
+msgstr  ""
+
+#: widget-rules.php:248
+msgid   "Smartphones"
+msgstr  ""
+
+#: widget-rules.php:247
+msgid   "Tablets"
+msgstr  ""
+
+#: widget-rules.php:249
+msgid   "Tablets/Smartphones"
+msgstr  ""
+
+#: widget-rules.php:166
+msgid   "Tag"
+msgstr  ""
+
+#: widget-rules.php:179
+msgid   "Tag ID/Name:"
+msgstr  ""
+
+#: widget-rules.php:170
+msgid   "Taxonomy"
+msgstr  ""
+
+#: widget-rules.php:183
+msgid   "Taxonomy term:"
+msgstr  ""
+
+#: widget-rules.php:182
+msgid   "Taxonomy:"
+msgstr  ""
+
+#: widget-rules.php:181
+msgid   "Template:"
+msgstr  ""
+
+#: widget-rules.php:151
+msgid   "Visible at: "
+msgstr  ""
+
+#: widget-rules.php:268
+msgid   "Visible for: "
+msgstr  ""
+
+#: widget-rules.php:253
+msgid   "Visible on: "
+msgstr  ""
