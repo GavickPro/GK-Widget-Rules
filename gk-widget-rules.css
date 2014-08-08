@@ -27,7 +27,23 @@
 }
 
 .gk_widget_rules_wrapper.active {
+	border-top: 1px solid #ddd;
 	display: block;
+	padding: 5px 0 0 0;
+}
+
+.gk_widget_rules_wrapper > p,
+.gk_widget_rules_wrapper > div > p {
+	line-height: 28px;
+	margin: 5px 0;
+	padding: 0;
+}
+
+.gk_widget_rules_wrapper > p > select,
+.gk_widget_rules_wrapper > div > p input,
+.gk_widget_rules_wrapper > div > p select {
+	float: right;
+	width: 50%;
 }
 
 .gk_widget_rules_select {
@@ -101,6 +117,8 @@
 	font-weight: bold;
 	font-size: 14px;
 	padding: 0 0 0 3px;
+	position: relative;
+	top: 2px;
 }
 
 .gk_widget_rules_pages div span.homepage {
