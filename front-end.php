@@ -158,22 +158,22 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 		
 		// function used to add new CSS classes to widgets
 		static function add_classes($params) {
+			global $wp_registered_widgets;
+			// get the widget settings
+			$widget_settings = get_option($wp_registered_widgets[$params[0]['widget_id']]['callback'][0]->option_name);
+			// get the configuration
+			$config = array_shift($widget_settings);
+			$config = unserialize($config['gk_widget_rules']);
 			// additional CSS classes
-			/*if(
-				isset($config['css']) && 
-				isset($config['css'][$params[0]['widget_id']])
-			) {
-				$widget_css_class = $config['css'][$params[0]['widget_id']];
+			if(isset($config['css'])) {
+				$widget_css_class = $config['css'];
 				$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_css_class . ' ', $params[0]['before_widget']);
 			}
 			// responsive CSS classes
-			if(
-				isset($config['responsive']) && 
-				isset($config['responsive'][$params[0]['widget_id']])
-			) {
-				$widget_rwd_css_class = $config['responsive'][$params[0]['widget_id']];
+			if(isset($config['responsive'])) {
+				$widget_rwd_css_class = $config['responsive'];
 				$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_rwd_css_class . ' ', $params[0]['before_widget']);
-			}*/
+			}
 			
 			return $params;
 		}
