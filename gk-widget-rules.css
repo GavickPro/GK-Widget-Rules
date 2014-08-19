@@ -28,7 +28,7 @@
 
 .gk_widget_rules_wrapper.active {
 	border-top: 1px solid #ddd;
-	display: block;
+	display: block!important;
 	padding: 5px 0 0 0;
 }
 
