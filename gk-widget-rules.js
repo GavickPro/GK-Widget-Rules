@@ -15,8 +15,10 @@ jQuery(document).click(function (e) {
 
         if (wrap.hasClass('active')) {
             wrap.removeClass('active');
+            wrap.find('.gk-widget-rules-visibility').val('0');
         } else {
             wrap.addClass('active');
+            wrap.find('.gk-widget-rules-visibility').val('1');
         }
     }
 });

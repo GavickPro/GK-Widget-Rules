@@ -84,9 +84,8 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 			$unique_id = rand(100000000, 999999999);
 
 			?>
-			
 				<a class="gk_widget_rules_btn button"><?php _e('Widget rules', 'gk-widget-rules'); ?></a>
-				<div class="gk_widget_rules_wrapper" id="gk_widget_rules_form_<?php echo $unique_id; ?>">
+				<div class="gk_widget_rules_wrapper<?php if ( !empty( $_POST['gk-widget-rules-visibility'] ) || $_POST['gk-widget-rules-visibility'] == '1' ) { ?> active<?php } ?>" id="gk_widget_rules_form_<?php echo $unique_id; ?>">
 					<p>
 						<label for="gk_widget_rules_type">
 							<?php _e('Visible at: ', 'gk-widget-rules'); ?>
@@ -221,11 +220,13 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 						</label>
 					</p>
 				</div>
+
+				<input type="hidden" name="gk-widget-rules-visibility" class="gk-widget-rules-visibility" value="<?php if ( isset( $_POST['gk-widget-rules-visibility'] ) ) { echo esc_attr( $_POST['gk-widget-rules-visibility'] ); } else { ?>0<?php } ?>" />
 			</div>
 			<hr />
 			<?php
 		}
 	}
-} // end of the code for the dashboard
+}
 
 // EOF
