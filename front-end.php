@@ -120,7 +120,7 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 				// get all widgets
 				foreach($widgets as $index => $id) {	
 					// get settings
-					$config = $sidebar_widgets[$sidebar][$index]['gk_widget_rules'];
+					$config = $sidebars_widgets[$sidebar][$index]['gk_widget_rules'];
 					// create function
 					$type = '';
 					if(isset($config['type'])) {
