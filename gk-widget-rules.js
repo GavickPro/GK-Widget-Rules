@@ -17,21 +17,18 @@ jQuery(document).click(function (e) {
             wrap.removeClass('active');
             wrap.find('.gk-widget-rules-visibility').val('0');
         } else {
+            gk_widget_control_init(wrap);
             wrap.addClass('active');
             wrap.find('.gk-widget-rules-visibility').val('1');
         }
     }
 });
 
-function gk_widget_control_init(id) {
-    gk_widget_control_init_events(id);
-}
 // function to init form event
+function gk_widget_control_init(selected_form) {
+    var form = jQuery(selected_form);    
 
-function gk_widget_control_init_events(id) {
-    var form = jQuery(id);
-
-    if (form.attr('data-state') !== 'initialized') {
+    if (form && form.attr('data-state') !== 'initialized') {
         form.attr('data-state', 'initialized');
         var firstSelect = form.find('select[name="gk_widget_rules_type"]');
         var select = form.find('.gk_widget_rules_form_select');

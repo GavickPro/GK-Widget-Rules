@@ -185,8 +185,6 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 						 	<div></div>
 						 </fieldset>
 					</fieldset>
-					
-					<script type="text/javascript">gk_widget_control_init('#gk_widget_rules_form_<?php echo $unique_id; ?>');</script>
 				<div>
 			
 				<p>
@@ -222,6 +220,10 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 				</div>
 
 				<input type="hidden" name="gk-widget-rules-visibility" class="gk-widget-rules-visibility" value="<?php if ( isset( $_POST['gk-widget-rules-visibility'] ) ) { echo esc_attr( $_POST['gk-widget-rules-visibility'] ); } else { ?>0<?php } ?>" />
+
+				<?php if(isset($_POST['gk-widget-rules-visibility']) && $_POST['gk-widget-rules-visibility'] == '1') : ?>
+				<script type="text/javascript">gk_widget_control_init('#gk_widget_rules_form_<?php echo $unique_id; ?>');</script>
+				<?php endif; ?>
 			</div>
 			<hr />
 			<?php
