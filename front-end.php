@@ -110,7 +110,6 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			return $output;
 		}
 		
-<<<<<<< HEAD
 		static function filter_widgets($instance) {	
 			// get settings
 			$config = unserialize($instance['gk_widget_rules']);
@@ -140,49 +139,6 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			// eval condition function
 			if(!$conditional_result) {
 				return false;
-=======
-		static function filter_widgets($sidebars_widgets) {	
-			// iterate all sidebars
-			foreach($sidebars_widgets as $sidebar => $widgets) {	
-				// skip inactive and empty sidebars
-				if ($sidebar == 'wp_inactive_widgets' || empty($widgets)) {
-					continue;
-				}
-				// get all widgets
-				foreach($widgets as $index => $id) {	
-					// get settings
-					$config = $sidebars_widgets[$sidebar][$index]['gk_widget_rules'];
-					// create function
-					$type = '';
-					if(isset($config['type'])) {
-						$type = $config['type'];
-					}
-					
-					$rules = '';
-					if(isset($config['rules'])) {
-						$rules = $config['rules'];
-					}
-					
-					$users = '';
-					if(isset($config['users'])) {
-						$users = $config['users'];
-					}
-					// cache for conditions
-					if(!isset(self::$conditions[$id])) {
-						self::$conditions[$id] = self::condition($type, $rules, $users);
-					}
-					
-					$conditional_function = create_function('', 'return '. self::$conditions[$id] .';');
-					
-					// generate the result of function
-					$conditional_result = $conditional_function();
-					// eval condition function
-					if(!$conditional_result) {
-						unset($sidebars_widgets[$sidebar][$index]);
-						continue;
-					}
-				}
->>>>>>> FETCH_HEAD
 			}
 			
 			return $instance;
