@@ -112,7 +112,11 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 		
 		static function filter_widgets($instance) {	
 			// get settings
-			$config = unserialize($instance['gk_widget_rules']);
+			$config = array();
+			// check for the widget rules option existence
+			if(isset($instance['gk_widget_rules'])) {
+				unserialize($instance['gk_widget_rules']);
+			}
 			// create function
 			$type = '';
 			if(isset($config['type'])) {
