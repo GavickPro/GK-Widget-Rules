@@ -151,7 +151,11 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			$widget_settings = get_option($wp_registered_widgets[$params[0]['widget_id']]['callback'][0]->option_name);
 			// get the configuration
 			$config = array_shift($widget_settings);
-			$config = unserialize($config['gk_widget_rules']);
+			if(isset($config['gk_widget_rules'])) {
+				$config = unserialize($config['gk_widget_rules']);	
+			} else {
+				$config = array();
+			}
 			// additional CSS classes
 			if(isset($config['css'])) {
 				$widget_css_class = $config['css'];
