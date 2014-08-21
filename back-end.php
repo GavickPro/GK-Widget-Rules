@@ -39,7 +39,7 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 				}
 				// save widget style CSS
 				if (isset($_POST['gk_widget_rules_css'])) {
-					$widget_rules['css'] = preg_replace('@[^A-Za-z0-9\-\_]@', '', $_POST['gk_widget_rules_css']);
+					$widget_rules['css'] = preg_replace('@[^A-Za-z0-9\-\_\s]@', '', $_POST['gk_widget_rules_css']);
 				}
 				// save widget responsive
 				if (isset($_POST['gk_widget_rules_responsive'])) {
