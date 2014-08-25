@@ -4,7 +4,7 @@
 Plugin Name:    GK Widget Rules
 Plugin URI:     http://wordpress.org/extend/plugins/gk-widget-rules/
 Description:    Adds possibility to manage the widgets visibility, their CSS classes etc.
-Version:        1.0.0
+Version:        1.1.0
 Author:         GavickPro
 Author URI:     http://www.gavick.com
  
