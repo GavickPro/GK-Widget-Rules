@@ -198,27 +198,36 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 		static function add_classes($params) {
 			global $wp_registered_widgets;
 			// get the widget settings
-			$widget_id = $wp_registered_widgets[$params[0]['widget_id']]['callback'][0]->option_name;
+			$id = $params[0]['widget_id'];
+			$num = -1;
 
-			if(!isset(self::$widget_settings[$widget_id])) {
-				self::$widget_settings[$widget_id] = get_option($widget_id);
+			if(preg_match( '@^(.+?)-([0-9]+)$@', $id, $matches)) {
+				$id = 'widget_' . $matches[1];
+				$num = intval($matches[2]);
 			}
-			// get the configuration
-			$config = array_shift(self::$widget_settings[$widget_id]);
-			if(isset($config['gk_widget_rules'])) {
-				$config = unserialize($config['gk_widget_rules']);	
-			} else {
-				$config = array();
+
+			if(!isset(self::$widget_settings[$id])) {
+				self::$widget_settings[$id] = get_option($id);
 			}
-			// additional CSS classes
-			if(isset($config['css'])) {
-				$widget_css_class = $config['css'];
-				$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_css_class . ' ', $params[0]['before_widget']);
-			}
-			// responsive CSS classes
-			if(isset($config['responsive'])) {
-				$widget_rwd_css_class = $config['responsive'];
-				$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_rwd_css_class . ' ', $params[0]['before_widget']);
+
+			if($num >= 0) {
+				// get the configuration
+				$config = self::$widget_settings[$id][$num];
+				if(isset($config['gk_widget_rules'])) {
+					$config = unserialize($config['gk_widget_rules']);	
+				} else {
+					$config = array();
+				}
+				// additional CSS classes
+				if(isset($config['css'])) {
+					$widget_css_class = $config['css'];
+					$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_css_class . ' ', $params[0]['before_widget']);
+				}
+				// responsive CSS classes
+				if(isset($config['responsive'])) {
+					$widget_rwd_css_class = $config['responsive'];
+					$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_rwd_css_class . ' ', $params[0]['before_widget']);
+				}
 			}
 			
 			return $params;
