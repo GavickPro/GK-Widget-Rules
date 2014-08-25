@@ -115,7 +115,7 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			$config = array();
 			// check for the widget rules option existence
 			if(isset($instance['gk_widget_rules'])) {
-				unserialize($instance['gk_widget_rules']);
+				$config = unserialize($instance['gk_widget_rules']);
 			}
 			// create function
 			$type = '';
