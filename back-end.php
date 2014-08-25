@@ -85,7 +85,7 @@ if(is_admin() && !class_exists('GK_Widget_Rules_Back_End')) {
 
 			?>
 				<a class="gk_widget_rules_btn button"><?php _e('Widget rules', 'gk-widget-rules'); ?></a>
-				<div class="gk_widget_rules_wrapper<?php if ( !empty( $_POST['gk-widget-rules-visibility'] ) || $_POST['gk-widget-rules-visibility'] == '1' ) { ?> active<?php } ?>" id="gk_widget_rules_form_<?php echo $unique_id; ?>">
+				<div class="gk_widget_rules_wrapper<?php if (isset($_POST['gk-widget-rules-visibility']) && $_POST['gk-widget-rules-visibility'] == '1') { ?> active<?php } ?>" id="gk_widget_rules_form_<?php echo $unique_id; ?>">
 					<p>
 						<label for="gk_widget_rules_type">
 							<?php _e('Visible at: ', 'gk-widget-rules'); ?>
