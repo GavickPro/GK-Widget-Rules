@@ -4,6 +4,8 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 	class GK_Widget_Rules_Front_End {
 		
 		static $conditions = array();
+		static $widget_settings = array();
+
 		/**
 		 *
 		 * Function used to create conditional string
@@ -152,14 +154,57 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			
 			return $instance;
 		}
+
+		static function filter_sidebars($sidebars) {	
+			foreach ($sidebars as $sidebar => $widgets) {
+				if (empty($widgets) || $sidebar == 'wp_inactive_widgets') {
+					continue;
+				}
+
+				foreach ($widgets as $pos => $id) {
+					$num = -1;
+
+					if(preg_match( '@^(.+?)-([0-9]+)$@', $id, $matches)) {
+						$id = 'widget_' . $matches[1];
+						$num = intval($matches[2]);
+					}
+
+					if(!isset(self::$widget_settings[$id])) {
+						self::$widget_settings[$id] = get_option($id);
+					}
+
+					if(
+						(
+							$num >= 0 &&
+							(
+								isset(self::$widget_settings[$id][$num]) && 
+								!self::filter_widgets(self::$widget_settings[$id][$num])
+							)
+						) ||
+						(
+							!empty(self::$widget_settings[$id]) && 
+							!self::filter_widgets(self::$widget_settings[$id])
+						)
+					) {
+						unset($sidebars[$sidebar][$pos]);
+					}
+				}
+			}
+
+			return $sidebars;
+		}
 		
 		// function used to add new CSS classes to widgets
 		static function add_classes($params) {
 			global $wp_registered_widgets;
 			// get the widget settings
-			$widget_settings = get_option($wp_registered_widgets[$params[0]['widget_id']]['callback'][0]->option_name);
+			$widget_id = $wp_registered_widgets[$params[0]['widget_id']]['callback'][0]->option_name;
+
+			if(!isset(self::$widget_settings[$widget_id])) {
+				self::$widget_settings[$widget_id] = get_option($widget_id);
+			}
 			// get the configuration
-			$config = array_shift($widget_settings);
+			$config = array_shift(self::$widget_settings[$widget_id]);
 			if(isset($config['gk_widget_rules'])) {
 				$config = unserialize($config['gk_widget_rules']);	
 			} else {
@@ -180,7 +225,8 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 		}
 	}
 	
-	add_filter('widget_display_callback', array('GK_Widget_Rules_Front_End', 'filter_widgets'), 10);
+	add_filter('widget_display_callback', array('GK_Widget_Rules_Front_End', 'filter_widgets'));
+	add_filter('sidebars_widgets', array('GK_Widget_Rules_Front_End', 'filter_sidebars'));
 	add_filter('dynamic_sidebar_params', array('GK_Widget_Rules_Front_End', 'add_classes'), 10);
 }
 
