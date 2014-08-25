@@ -133,11 +133,16 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 				$users = $config['users'];
 			}
 			// cache for conditions
-			if(!isset(self::$conditions[md5($instance['gk_widget_rules'])])) {
+			if(isset($instance['gk_widget_rules']) && !isset(self::$conditions[md5($instance['gk_widget_rules'])])) {
 				self::$conditions[md5($instance['gk_widget_rules'])] = self::condition($type, $rules, $users);
 			}
 			
-			$conditional_function = create_function('', 'return '. self::$conditions[md5($instance['gk_widget_rules'])] .';');
+			if(isset($instance['gk_widget_rules'])) {
+				$conditional_function = create_function('', 'return '. self::$conditions[md5($instance['gk_widget_rules'])] .';');	
+			} else {
+				$conditional_function = create_function('', 'return TRUE;');
+			}
+			
 			// generate the result of function
 			$conditional_result = $conditional_function();
 			// eval condition function
