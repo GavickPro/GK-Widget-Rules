@@ -2,7 +2,7 @@
 
 if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 	class GK_Widget_Rules_Front_End {
-		
+
 		static $conditions = array();
 		static $widget_settings = array();
 
@@ -20,24 +20,24 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 		static function condition($mode, $input, $users) {
 			// Example input:
 			// homepage,page:12,post:10,category:test,tag:test
-		
+
 			$output = ' (';
 			if($mode == 'all') {
 				$output = '';
 			} else if($mode == 'exclude') {
 				$output = ' !(';
 			}
-		
+
 			if($mode != 'all') {
-				$input = preg_replace('@[^a-zA-Z0-9\-_,;\:\.\s]@mis', '', $input); 
+				$input = preg_replace('@[^a-zA-Z0-9\-_,;\:\.\s]@mis', '', $input);
 				$input = substr($input, 1);
 				$input = explode(',', $input);
-		
+
 				for($i = 0; $i < count($input); $i++) {
 					if($i > 0) {
-						$output .= '||'; 
+						$output .= '||';
 					}
-		
+
 					if(stripos($input[$i], 'homepage') !== FALSE) {
 					    $output .= ' is_home() ';
 					} else if(stripos($input[$i], 'page:') !== FALSE) {
@@ -91,10 +91,10 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 					    $output .= ' is_404() ';
 					}
 				}
-		
+
 				$output .= ')';
 			}
-		
+
 			if($users != 'all') {
 				if($users == 'guests') {
 					$output .= (($output == '') ? '' : ' && ') . ' !is_user_logged_in()';
@@ -104,15 +104,15 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 					$output .= (($output == '') ? '' : ' && ') . ' current_user_can(\'manage_options\')';
 				}
 			}
-		
+
 			if($output == '' || trim($output) == '()' || trim($output) == '!()') {
 				$output = ' TRUE';
 			}
-			
+
 			return $output;
 		}
-		
-		static function filter_widgets($instance) {	
+
+		static function filter_widgets($instance) {
 			// get settings
 			$config = array();
 			// check for the widget rules option existence
@@ -124,12 +124,12 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			if(isset($config['type'])) {
 				$type = $config['type'];
 			}
-			
+
 			$rules = '';
 			if(isset($config['value'])) {
 				$rules = $config['value'];
 			}
-			
+
 			$users = '';
 			if(isset($config['users'])) {
 				$users = $config['users'];
@@ -138,24 +138,23 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 			if(isset($instance['gk_widget_rules']) && !isset(self::$conditions[md5($instance['gk_widget_rules'])])) {
 				self::$conditions[md5($instance['gk_widget_rules'])] = self::condition($type, $rules, $users);
 			}
-			
-			if(isset($instance['gk_widget_rules'])) {
-				$conditional_function = create_function('', 'return '. self::$conditions[md5($instance['gk_widget_rules'])] .';');	
-			} else {
-				$conditional_function = create_function('', 'return TRUE;');
+
+			/* Always remember: eval() is EVIL! */
+			if ( isset( $instance['gk_widget_rules'] ) ) {
+				try {
+					if ( ! eval('return ' . self::$conditions[ md5( $instance['gk_widget_rules'] ) ] . ';' ) ) {
+						return false;
+					}
+				} catch ( Error $e ) {
+					trigger_error( $e->getMessage(), E_USER_WARNING );
+					return false;
+				}
 			}
-			
-			// generate the result of function
-			$conditional_result = $conditional_function();
-			// eval condition function
-			if(!$conditional_result) {
-				return false;
-			}
-			
+
 			return $instance;
 		}
 
-		static function filter_sidebars($sidebars) {	
+		static function filter_sidebars($sidebars) {
 			foreach ($sidebars as $sidebar => $widgets) {
 				if (empty($widgets) || $sidebar == 'wp_inactive_widgets') {
 					continue;
@@ -177,12 +176,12 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 						(
 							$num >= 0 &&
 							(
-								isset(self::$widget_settings[$id][$num]) && 
+								isset(self::$widget_settings[$id][$num]) &&
 								!self::filter_widgets(self::$widget_settings[$id][$num])
 							)
 						) ||
 						(
-							!empty(self::$widget_settings[$id]) && 
+							!empty(self::$widget_settings[$id]) &&
 							!self::filter_widgets(self::$widget_settings[$id])
 						)
 					) {
@@ -193,7 +192,7 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 
 			return $sidebars;
 		}
-		
+
 		// function used to add new CSS classes to widgets
 		static function add_classes($params) {
 			global $wp_registered_widgets;
@@ -214,7 +213,7 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 				// get the configuration
 				$config = self::$widget_settings[$id][$num];
 				if(isset($config['gk_widget_rules'])) {
-					$config = unserialize($config['gk_widget_rules']);	
+					$config = unserialize($config['gk_widget_rules']);
 				} else {
 					$config = array();
 				}
@@ -229,11 +228,11 @@ if(!is_admin() && !class_exists('GK_Widget_Rules_Front_End')) {
 					$params[0]['before_widget'] = str_replace('class="', 'class="' . $widget_rwd_css_class . ' ', $params[0]['before_widget']);
 				}
 			}
-			
+
 			return $params;
 		}
 	}
-	
+
 	add_filter('widget_display_callback', array('GK_Widget_Rules_Front_End', 'filter_widgets'));
 	add_filter('sidebars_widgets', array('GK_Widget_Rules_Front_End', 'filter_sidebars'));
 	add_filter('dynamic_sidebar_params', array('GK_Widget_Rules_Front_End', 'add_classes'), 10);
